@@ -1,0 +1,27 @@
+!!! 5
+html(lang='en')
+head
+    meta(charset='utf-8')
+    title Lowpass Filter Example
+    // script(type='text/javascript', src='kievII.js')
+    link(rel='stylesheet', href='style.css')
+    script(type='text/javascript', src='interface.js')
+    script(type='text/javascript', src='http://code.jquery.com/jquery-1.10.2.min.js')
+  body
+    h1 LOWPASS FILTER EXAMPLE
+    canvas#myCanvas
+    p
+      | Track selector:
+    #selector
+    p#here
+      | Try it:
+      button(onclick='playpause(audio);')
+        | Play/pause
+    p
+      | Filter on:
+      input(type='checkbox', checked='false', onclick='FilterSample.toggleFilter(this);')
+      | Frequency:
+      input(type='range', min='0', max='1', step='0.01', value='1', oninput='FilterSample.changeFrequency(this);')
+      | Resonance:
+      input(type='range', min='0', max='1', step='0.01', value='0', oninput='FilterSample.changeQuality(this);')
+  script(type='text/javascript', src='filter.js')
