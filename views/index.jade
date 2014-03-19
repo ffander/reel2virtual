@@ -26,22 +26,6 @@ head
           | TRACK SELECTOR:
         select#selector(onchange="switchSong(value);")
       p.footer
-        //| 2014 | Università degli Studi di Padova
+        | 2014 | Università degli Studi di Padova
     canvas#myCanvas
-    p
-      | TRACK SELECTOR:
-    p#here
-      | Try it:
-      button(onclick='playpause(audio);')
-        | Play/pause
-    p
-      | FilterNode on:
-      input(type='checkbox', checked='false', onclick='FilterSample.toggleFilter(this);')
-      | Frequency:
-      input(type='range', min='0', max='1', step='0.01', value='1', oninput='FilterSample.changeFrequency(this);')
-      | Resonance:
-      input(type='range', min='0', max='1', step='0.01', value='0', oninput='FilterSample.changeQuality(this);')
-    p
-      | ConvolutionNode on:
-      input(type='checkbox', checked='false', onclick='Conv.toggleFilter(this);')
   script(type='text/javascript', src='filter.js')
