@@ -7,8 +7,22 @@ head
     link(rel='stylesheet', href='style.css')
     script(type='text/javascript', src='interface.js')
     script(type='text/javascript', src='http://code.jquery.com/jquery-1.10.2.min.js')
+    script(type='text/javascript', src='http://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.0.1/kinetic.min.js')
+    script(type='text/javascript', src='draw.js')
   body
-    h1 LOWPASS FILTER EXAMPLE
+    #container
+    #bottom
+      p.timer
+        | 0:00:00
+      .clickcontainer
+        a(href='#prev').click#prev
+        a(href='#next').click#next
+        a(href='#play', onclick='playpause(audio); anim.start();').click#play
+        a(href='#pause').click#pause
+      a.knob
+        img(src='knob.png')
+      p.footer
+        //| 2014 | Università degli Studi di Padova
     canvas#myCanvas
     p
       | Track selector:
@@ -18,10 +32,13 @@ head
       button(onclick='playpause(audio);')
         | Play/pause
     p
-      | Filter on:
+      | FilterNode on:
       input(type='checkbox', checked='false', onclick='FilterSample.toggleFilter(this);')
       | Frequency:
       input(type='range', min='0', max='1', step='0.01', value='1', oninput='FilterSample.changeFrequency(this);')
       | Resonance:
       input(type='range', min='0', max='1', step='0.01', value='0', oninput='FilterSample.changeQuality(this);')
+    p
+      | ConvolutionNode on:
+      input(type='checkbox', checked='false', onclick='Conv.toggleFilter(this);')
   script(type='text/javascript', src='filter.js')
