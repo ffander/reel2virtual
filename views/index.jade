@@ -12,21 +12,24 @@ head
   body
     #container
     #bottom
-      p.timer
+      p#timer
         | 0:00:00
       .clickcontainer
-        a(href='#prev').click#prev
-        a(href='#next').click#next
-        a(href='#play', onclick='playpause(audio); anim.start();').click#play
-        a(href='#pause').click#pause
+        a(href='#prev', onclick='prev();').click#prev
+        a(href='#next', onclick='next();').click#next
+        a(href='#play', onclick='play(audio);').click#play
+        a(href='#pause', onclick='stop(audio);').click#pause
       a.knob
         img(src='knob.png')
+      .trackSelector
+        p
+          | TRACK SELECTOR:
+        select#selector(onchange="switchSong(value);")
       p.footer
         //| 2014 | Università degli Studi di Padova
     canvas#myCanvas
     p
-      | Track selector:
-    #selector
+      | TRACK SELECTOR:
     p#here
       | Try it:
       button(onclick='playpause(audio);')
