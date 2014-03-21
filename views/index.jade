@@ -19,12 +19,14 @@ head
         a(href='#next', onclick='next();').click#next
         a(href='#play', onclick='play(audio);').click#play
         a(href='#pause', onclick='stop(audio);').click#pause
-      a.knob
-        img(src='knob.png')
+      a.knob(onclick='nextEQ(currentEQ);')
+        img#kn(src='knob.png')
       .trackSelector
         p
           | TRACK SELECTOR:
         select#selector(onchange="switchSong(value);")
+          option(disabled)
+            | Select a track...
       p.footer
         | 2014 | Università degli Studi di Padova
     canvas#myCanvas

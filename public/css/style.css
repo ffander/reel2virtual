@@ -1,0 +1,138 @@
+@font-face {
+    font-family: 'digital_dreamregular';
+    src: url('DIGITALDREAM-webfont.eot');
+    src: url('DIGITALDREAM-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DIGITALDREAM-webfont.woff') format('woff'),
+         url('DIGITALDREAM-webfont.ttf') format('truetype'),
+         url('DIGITALDREAM-webfont.svg#digital_dreamregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: black;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.tracklist {
+	margin-right: 10px;
+	border: 1px solid #000000;
+	padding: 3px 3px 3px 3px;
+}
+
+.tracklist a {
+	color: black;
+	text-decoration: none;
+}
+
+.tracklist a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+#container {
+	width: 1040px;
+	height: 720px;
+	margin-top: -60px;
+}
+
+#bottom {
+	width: 1040px;
+	height: 360px;
+	background-image: url('bg2.jpg');
+	position: absolute;
+}
+
+.trackSelector {
+	margin-top: 260px;
+	margin-left: 460px;
+	text-align: center;
+}
+
+.trackSelector > p {
+	color: white;
+}
+
+#selector {
+	font-size: 24px;
+}
+
+#timer {
+	width: 325px;
+	height: 80px;
+	margin: 0;
+	position: absolute;
+	top: 103px;
+	left: 125px;
+	color: red;
+	font-size: 50px;
+	text-align: center;
+	padding-top: 15px;
+	font-family: 'digital_dreamregular', Arial, sans-serif;
+}
+.knob {
+	position: absolute;
+	top: 139px;
+	left: 710px;
+	width: 80px;
+	height: 80px;
+}
+
+.knob img {
+	-webkit-filter: drop-shadow(0 5px 5px black);
+}
+.clickcontainer {
+	position: absolute;
+	top: 210px;
+	left: 113px;
+}
+.click {
+	display: inline-block;
+	/*background-color: green;*/
+	width: 80px;
+	height: 100px;
+	margin-left: 5px;
+}
+
+.footer {
+	width: 1040px;
+	text-align: center;
+	position: absolute;
+	color: gray;
+	bottom: 7px;
+	margin: 0;
+}
+
+.IEC1_7 {
+	-webkit-transform: rotate(45deg);
+}
+
+.IEC1_15 {
+	-webkit-transform: rotate(75deg);
+}
+
+.IEC2_7 {
+	-webkit-transform: rotate(105deg);
+}
+
+.IEC2_15 {
+	-webkit-transform: rotate(135deg);
+}
+
+.NAB_15 {
+	-webkit-transform: rotate(225deg);
+}
+
+.NAB_7 {
+	-webkit-transform: rotate(270deg);
+}
+
+.NAB_3 {
+	-webkit-transform: rotate(315deg);
+}
