@@ -1,12 +1,12 @@
 // Export this variable so it is accesible
 var anim;
 
-// Reel rotation speed
-var angularSpeed = - 360 * 1.5;
+// Reel rotation speed (initial value set to zero)
+var angularSpeed = 0;
 
 
-window.onload = function() {
-  // Kinetic.js Stage is the <canvas> element
+window.addEventListener('load', function(e) {
+  // Kinetic.js Stage object is associated to the <canvas> element
   var stage = new Kinetic.Stage({
     container: 'container',
     width: 1040,
@@ -53,6 +53,8 @@ window.onload = function() {
     });
     layer.add(reelL);
     layer.add(reelR);
+
+    // Reel animation function
     anim = new Kinetic.Animation(function(frame) {
       var angleDiff = frame.timeDiff * angularSpeed / 1000;
       reelR.rotate(angleDiff);
@@ -88,4 +90,4 @@ window.onload = function() {
   bg.src = 'canvasbg.jpg';
   tape.src = 'tapemetal.png';
   pin.src = 'pin.png';
-};
+}, false);

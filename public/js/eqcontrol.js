@@ -54,6 +54,14 @@ window.addEventListener('load', function(e) {
     NAB_7.next = NAB_3;
     NAB_3.next = IEC1_7;
 
+    IEC1_7.prev = NAB_3;
+    IEC1_15.prev = IEC1_7;
+    IEC2_7.prev = IEC1_15;
+    IEC2_15.prev = IEC1_7;
+    NAB_15.prev = IEC2_15;
+    NAB_7.prev = NAB_15;
+    NAB_3.prev = NAB_7;
+
     // Setting the (extimated) tape rotation speeds
     IEC1_15.speed = IEC2_15.speed = NAB_15.speed = - 360 * 1.5;
     IEC1_7.speed = IEC2_7.speed = NAB_7.speed = - 360 * 0.75;
@@ -136,7 +144,7 @@ function changeSpeed(newSpeed) {
     angularSpeed = newSpeed;
 }
 
-// TO DO: revert to original EQ
+// TO DO: 
 // maybe add a small "lightbulb" indicator
 // also maybe lighting bulbs for play/pause/prev/next too
 
@@ -155,10 +163,14 @@ function nextEQ(inEQ) {
 }
 
 var originalSpeed;
+var newConv;
+
+function revertEQ() {
+    nextEQ(newConv.prev);
+}
 
 function switchSong(newSong) {
     var newEQ = newSong.split('.');
-    var newConv;
     anim.stop();
     audio.src = 'http://localhost:3000/play/'+newSong;
     if (newEQ[0] == 'IEC1_15')

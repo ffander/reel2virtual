@@ -1,12 +1,12 @@
 !!! 5
 html(lang='en')
-head
+  head
     meta(charset='utf-8')
-    title Lowpass Filter Example
+    title Reel2Virtual
     link(rel='stylesheet', href='style.css')
     script(type='text/javascript', src='http://code.jquery.com/jquery-1.10.2.min.js')
     script(type='text/javascript', src='http://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.0.1/kinetic.min.js')
-    script(type='text/javascript', src='draw.js')
+    script(type='text/javascript', src='interface.js')
   body
     #container
     #bottom
@@ -18,7 +18,7 @@ head
         a(href='#play', onclick='play(audio);').click#play
         a(href='#pause', onclick='stop(audio);').click#pause
       a.knob(onclick='nextEQ(currentEQ);')
-        img#kn(class='IEC1_7', src='knob.png')
+        img#kn(class='IEC1_7', src='knob.png', alt='Speed selector knob')
       .trackSelector
         p
           | TRACK SELECTOR:
@@ -27,5 +27,4 @@ head
             | Select a track...
       p.footer
         | 2014 | Università degli Studi di Padova
-    //canvas#myCanvas
-  script(type='text/javascript', src='filter.js')
+    script(type='text/javascript', src='eqcontrol.js')
