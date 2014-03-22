@@ -16,26 +16,6 @@ body {
   background-color: black;
 }
 
-a {
-  color: #00B7FF;
-}
-
-.tracklist {
-	margin-right: 10px;
-	border: 1px solid #000000;
-	padding: 3px 3px 3px 3px;
-}
-
-.tracklist a {
-	color: black;
-	text-decoration: none;
-}
-
-.tracklist a:hover {
-	color: black;
-	text-decoration: underline;
-}
-
 #container {
 	width: 1040px;
 	height: 720px;
@@ -76,6 +56,7 @@ a {
 	padding-top: 15px;
 	font-family: 'digital_dreamregular', Arial, sans-serif;
 }
+
 .knob {
 	position: absolute;
 	top: 139px;
@@ -87,14 +68,15 @@ a {
 .knob img {
 	-webkit-filter: drop-shadow(0 5px 5px black);
 }
+
 .clickcontainer {
 	position: absolute;
 	top: 210px;
 	left: 113px;
 }
+
 .click {
 	display: inline-block;
-	/*background-color: green;*/
 	width: 80px;
 	height: 100px;
 	margin-left: 5px;

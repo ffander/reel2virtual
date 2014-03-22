@@ -1,10 +1,11 @@
+// Our <audio> element 
 var audio = new Audio();
 // Hide default controls
 audio.controls = false;
 audio.autoplay = false;
 audio.id = 'track';
 
-// Update the playback timer
+// Function for the playback timer update
 audio.ontimeupdate = function() {
     var currentSeconds = (Math.floor(this.currentTime % 60) < 10 ? '0' : '') + Math.floor(this.currentTime % 60);
     var currentMinutes = Math.floor(this.currentTime / 60);
@@ -12,19 +13,17 @@ audio.ontimeupdate = function() {
     document.getElementById('timer').innerHTML = currentMinutes + " : " + currentSeconds;
 };
 
+// Creation of the AudioContext
 var context = new webkitAudioContext();
 var source;
-var playingid = 1;
 
 // Wait for window.onload to fire
 window.addEventListener('load', function(e) {
     // Our <audio> element will be the audio source.
     source = context.createMediaElementSource(audio);
 
-    conv = context.createConvolver();
-    gain = context.createGain();
-
     // Gain to compensate for volume loss after convolution
+    gain = context.createGain();
     gain.gain.value = 15;
 
     // A convolver for each supported standard
@@ -128,6 +127,8 @@ function prev() {
 
 var currentEQ;
 var currentSpeed;
+var originalSpeed;
+var newConv;
 
 function changeEQ(newEQ) {
     if (newEQ != currentEQ) {
@@ -161,9 +162,6 @@ function nextEQ(inEQ) {
     document.getElementById('kn').setAttribute('class', inEQ.next.id);
     changeEQ(inEQ.next);
 }
-
-var originalSpeed;
-var newConv;
 
 function revertEQ() {
     nextEQ(newConv.prev);

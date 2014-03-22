@@ -13,10 +13,10 @@ window.addEventListener('load', function(e) {
     height: 720
   });
 
-  // Graphics are layered on top of each other
+  // Graphics are grouped in a layer
   var layer = new Kinetic.Layer();
 
-  // First, we draw the background
+  // First, we load the background
   var bg = new Image();
   bg.onload = function() {
     var studer = new Kinetic.Image({
@@ -28,9 +28,13 @@ window.addEventListener('load', function(e) {
     });
   // add the shape to the layer
   layer.add(studer);
+  // This is the largest image, so it may load after the others
+  // we need to move it to the bottom of the layer
+  studer.moveToBottom();
+  layer.draw();
   };
 
-  // Then we draw the Tape Reels on top of the background
+  // Then we load the Tape Reels that will appear on top of the background
   var tape = new Image();
   tape.onload = function() {
     var reelL = new Kinetic.Image({
@@ -62,8 +66,8 @@ window.addEventListener('load', function(e) {
     }, layer);
   };
 
-  // Finally, we draw the pin (which shouldn't rotate)
-  // with the rest of the reels
+  // Finally, we load the pins (which shouldn't rotate
+  // with the rest of the reels)
   var pin = new Image();
   pin.onload = function() {
     var pinL = new Kinetic.Image({
@@ -90,4 +94,5 @@ window.addEventListener('load', function(e) {
   bg.src = 'canvasbg.jpg';
   tape.src = 'tapemetal.png';
   pin.src = 'pin.png';
+  
 }, false);
