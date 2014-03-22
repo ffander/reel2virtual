@@ -8,6 +8,7 @@ audio.id = 'track';
 audio.ontimeupdate = function() {
     var currentSeconds = (Math.floor(this.currentTime % 60) < 10 ? '0' : '') + Math.floor(this.currentTime % 60);
     var currentMinutes = Math.floor(this.currentTime / 60);
+    // As a side note, native getElementById is faster than jQuery's $ selector
     document.getElementById('timer').innerHTML = currentMinutes + " : " + currentSeconds;
 };
 
@@ -53,7 +54,7 @@ window.addEventListener('load', function(e) {
     NAB_7.next = NAB_3;
     NAB_3.next = IEC1_7;
 
-    // Setting the (extimated) tape speeds
+    // Setting the (extimated) tape rotation speeds
     IEC1_15.speed = IEC2_15.speed = NAB_15.speed = - 360 * 1.5;
     IEC1_7.speed = IEC2_7.speed = NAB_7.speed = - 360 * 0.75;
     NAB_3.speed = - 360 * 0.375;
@@ -70,18 +71,20 @@ window.addEventListener('load', function(e) {
         request.send();
     }
 
-    // Loading impulse responses - TBC
+    // Loading impulse responses - TBCompleted
     setImpResp(IEC1_15);
     setImpResp(NAB_7);
 
     //source.connect(context.destination);
+    // NOT NEEDED - Upong loading a track the connection is made automatically
+    // We just need to connect each convolver to the gain and the gain to the destination
     source.connect(NAB_7);
     gain.connect(context.destination);
     
     // List playable files
     $.getJSON('http://localhost:3000/list', function(result) {
         $.each(result, function(key, track) {
-            $('#selector').append('<option value="'+track.filename+'">'+track.title+'</option>');
+            $('#selector').append('<option value="'+track.filename+'">['+track.ips+'] '+track.title+'</option>');
         });
         audio.src = 'http://localhost:3000/play/'+result[0].filename;
     });
@@ -102,7 +105,7 @@ function stop(element) {
 function next() {
     var s = document.getElementById('selector');
     s.selectedIndex = (document.getElementById('selector').selectedIndex + 1) % s.length;
-    if (s.selectedIndex == 0)
+    if (s.selectedIndex === 0)
         s.selectedIndex = (document.getElementById('selector').selectedIndex + 1) % s.length;
     switchSong(s.value);
 }
@@ -110,7 +113,7 @@ function next() {
 function prev() {
     var s = document.getElementById('selector');
     s.selectedIndex = ((s.selectedIndex - 1) % s.length + s.length) % s.length;
-    if (s.selectedIndex == 0)
+    if (s.selectedIndex === 0)
         s.selectedIndex = ((s.selectedIndex - 1) % s.length + s.length) % s.length;
     switchSong(s.value);
 }
@@ -132,6 +135,10 @@ function changeEQ(newEQ) {
 function changeSpeed(newSpeed) {
     angularSpeed = newSpeed;
 }
+
+// TO DO: revert to original EQ
+// maybe add a small "lightbulb" indicator
+// also maybe lighting bulbs for play/pause/prev/next too
 
 // Change the EQ with the IPS knob
 function nextEQ(inEQ) {

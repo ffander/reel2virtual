@@ -3,9 +3,7 @@ html(lang='en')
 head
     meta(charset='utf-8')
     title Lowpass Filter Example
-    // script(type='text/javascript', src='kievII.js')
     link(rel='stylesheet', href='style.css')
-    script(type='text/javascript', src='interface.js')
     script(type='text/javascript', src='http://code.jquery.com/jquery-1.10.2.min.js')
     script(type='text/javascript', src='http://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.0.1/kinetic.min.js')
     script(type='text/javascript', src='draw.js')
@@ -20,7 +18,7 @@ head
         a(href='#play', onclick='play(audio);').click#play
         a(href='#pause', onclick='stop(audio);').click#pause
       a.knob(onclick='nextEQ(currentEQ);')
-        img#kn(src='knob.png')
+        img#kn(class='IEC1_7', src='knob.png')
       .trackSelector
         p
           | TRACK SELECTOR:
@@ -29,5 +27,5 @@ head
             | Select a track...
       p.footer
         | 2014 | Università degli Studi di Padova
-    canvas#myCanvas
+    //canvas#myCanvas
   script(type='text/javascript', src='filter.js')

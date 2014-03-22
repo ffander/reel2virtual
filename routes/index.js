@@ -24,7 +24,6 @@ exports.list = function(req, res) {
         track['filetype'] = split[2];
         track['filename'] = file;
         output.push(track);
-        //output[split[0]] = file;
       }
     }
     return res.json(output);
