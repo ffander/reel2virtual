@@ -86,6 +86,9 @@ window.addEventListener('load', function(e) {
     });
   layer.add(pinL);
   layer.add(pinR);
+  pinL.moveToTop();
+  pinR.moveToTop();
+  layer.draw();
   // add the layer to the stage
   stage.add(layer);
   };

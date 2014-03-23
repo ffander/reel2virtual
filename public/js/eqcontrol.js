@@ -89,11 +89,11 @@ window.addEventListener('load', function(e) {
     gain.connect(context.destination);
     
     // List playable files
-    $.getJSON('http://localhost:3000/list', function(result) {
+    $.getJSON('/list', function(result) {
         $.each(result, function(key, track) {
             $('#selector').append('<option value="'+track.filename+'">['+track.ips+'] '+track.title+'</option>');
         });
-        audio.src = 'http://localhost:3000/play/'+result[0].filename;
+        audio.src = '/play/'+result[0].filename;
     });
 
 }, false);
@@ -170,7 +170,7 @@ function revertEQ() {
 function switchSong(newSong) {
     var newEQ = newSong.split('.');
     anim.stop();
-    audio.src = 'http://localhost:3000/play/'+newSong;
+    audio.src = '/play/'+newSong;
     if (newEQ[0] == 'IEC1_15')
         newConv = IEC1_15;
     else if (newEQ[0] == 'IEC1_7')
