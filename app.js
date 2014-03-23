@@ -10,7 +10,8 @@ var app = express();
 
 // Express.js configuration
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
+  app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -48,6 +49,6 @@ app.get('/*.(wav)', function(req,res){
 });
 
 // Web Server Startup
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
