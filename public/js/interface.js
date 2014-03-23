@@ -16,25 +16,7 @@ window.addEventListener('load', function(e) {
   // Graphics are grouped in a layer
   var layer = new Kinetic.Layer();
 
-  // First, we load the background
-  var bg = new Image();
-  bg.onload = function() {
-    var studer = new Kinetic.Image({
-      x: 0,
-      y: 0,
-      image: bg,
-      width: 1040,
-      height: 720
-    });
-  // add the shape to the layer
-  layer.add(studer);
-  // This is the largest image, so it may load after the others
-  // we need to move it to the bottom of the layer
-  studer.moveToBottom();
-  layer.draw();
-  };
-
-  // Then we load the Tape Reels that will appear on top of the background
+  // Loading the tape reels
   var tape = new Image();
   tape.onload = function() {
     var reelL = new Kinetic.Image({
@@ -57,6 +39,7 @@ window.addEventListener('load', function(e) {
     });
     layer.add(reelL);
     layer.add(reelR);
+    layer.draw();
 
     // Reel animation function
     anim = new Kinetic.Animation(function(frame) {
@@ -64,6 +47,23 @@ window.addEventListener('load', function(e) {
       reelR.rotate(angleDiff);
       reelL.rotate(angleDiff);
     }, layer);
+  };
+
+  // Loading the background
+  var bg = new Image();
+  bg.onload = function() {
+    var studer = new Kinetic.Image({
+      x: 0,
+      y: 0,
+      image: bg,
+      width: 1040,
+      height: 720
+    });
+  // Add the shape to the layer
+  layer.add(studer);
+  // Move it to the bottom of the layer
+  studer.moveToBottom();
+  layer.draw();
   };
 
   // Finally, we load the pins (which shouldn't rotate
@@ -86,10 +86,11 @@ window.addEventListener('load', function(e) {
     });
   layer.add(pinL);
   layer.add(pinR);
+  // Move them to the top of the layer
   pinL.moveToTop();
   pinR.moveToTop();
   layer.draw();
-  // add the layer to the stage
+  // Add the layer to the stage
   stage.add(layer);
   };
 

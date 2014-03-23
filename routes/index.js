@@ -9,7 +9,6 @@ exports.index = function(req, res){
 // Returns a JSON containing a list of playable files
 exports.list = function(req, res) {
   var music_path;
-  console.log(path.resolve(__dirname, '..'));
   music_path = path.join(path.resolve(__dirname, '..'), 'audio');
   return fisy.readdir(music_path, function(error, files) {
     var file, output, _i, _len;

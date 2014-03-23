@@ -8,14 +8,18 @@ audio.id = 'track';
 // Function for the playback timer update
 audio.ontimeupdate = function() {
     var currentSeconds = (Math.floor(this.currentTime % 60) < 10 ? '0' : '') + Math.floor(this.currentTime % 60);
-    var currentMinutes = Math.floor(this.currentTime / 60);
+    var currentMinutes = (Math.floor(this.currentTime / 60) < 10 ? '0' : '') + Math.floor(this.currentTime / 60);
     // As a side note, native getElementById is faster than jQuery's $ selector
     document.getElementById('timer').innerHTML = currentMinutes + " : " + currentSeconds;
 };
 
 // Creation of the AudioContext
-var context = new webkitAudioContext();
-var source;
+var context;
+if (typeof AudioContext !== 'undefined') {
+  context = new AudioContext();
+} else if (typeof webkitAudioContext !== 'undefined') {
+  context = new webkitAudioContext();
+}
 
 // Wait for window.onload to fire
 window.addEventListener('load', function(e) {
@@ -24,6 +28,8 @@ window.addEventListener('load', function(e) {
 
     // Gain to compensate for volume loss after convolution
     gain = context.createGain();
+    // Gain value set after some trials; it would probably
+    // be more correct to have a gain slider
     gain.gain.value = 15;
 
     // A convolver for each supported standard
@@ -44,6 +50,16 @@ window.addEventListener('load', function(e) {
     NAB_7.id = "NAB_7";
     NAB_3.id = "NAB_3";
 
+    // Setting the impulse response for each convolver
+    // (some are shared)
+    IEC1_15.imp = "IEC1_15";
+    IEC1_7.imp = "IEC1_7";
+    IEC2_15.imp = "IEC2_15";
+    IEC2_7.imp = "IEC2_15";
+    NAB_15.imp = "IEC2_15";
+    NAB_7.imp = "IEC2_15";
+    NAB_3.imp = "NAB_3";
+
     // Chaining the convolver in a round-robin fashion
     IEC1_7.next = IEC1_15;
     IEC1_15.next = IEC2_7;
@@ -61,7 +77,7 @@ window.addEventListener('load', function(e) {
     NAB_7.prev = NAB_15;
     NAB_3.prev = NAB_7;
 
-    // Setting the (extimated) tape rotation speeds
+    // Setting the (extimated) reel rotation speeds
     IEC1_15.speed = IEC2_15.speed = NAB_15.speed = - 360 * 1.5;
     IEC1_7.speed = IEC2_7.speed = NAB_7.speed = - 360 * 0.75;
     NAB_3.speed = - 360 * 0.375;
@@ -69,7 +85,7 @@ window.addEventListener('load', function(e) {
     // Function to request impulse responses .wav files
     function setImpResp(convolver) {
         var request = new XMLHttpRequest();
-        request.open("GET", "/" + convolver.id + ".wav", true);
+        request.open("GET", "/" + convolver.imp + ".wav", true);
         request.responseType = "arraybuffer";
         request.onload = function() {
             convolver.buffer = context.createBuffer(request.response, false);
@@ -79,13 +95,14 @@ window.addEventListener('load', function(e) {
     }
 
     // Loading impulse responses - TBCompleted
+    setImpResp(IEC2_15);
+    setImpResp(IEC2_7);
     setImpResp(IEC1_15);
+    setImpResp(IEC1_7);
+    setImpResp(NAB_15);
     setImpResp(NAB_7);
+    setImpResp(NAB_3);
 
-    //source.connect(context.destination);
-    // NOT NEEDED - Upong loading a track the connection is made automatically
-    // We just need to connect each convolver to the gain and the gain to the destination
-    source.connect(NAB_7);
     gain.connect(context.destination);
     
     // List playable files
@@ -130,6 +147,8 @@ var currentSpeed;
 var originalSpeed;
 var newConv;
 
+// Functions to switch EQ and load new tracks
+
 function changeEQ(newEQ) {
     if (newEQ != currentEQ) {
         source.disconnect(currentEQ);
@@ -145,11 +164,7 @@ function changeSpeed(newSpeed) {
     angularSpeed = newSpeed;
 }
 
-// TO DO: 
-// maybe add a small "lightbulb" indicator
-// also maybe lighting bulbs for play/pause/prev/next too
-
-// Change the EQ with the IPS knob
+// Change the EQ and the playback rate with the IPS knob
 function nextEQ(inEQ) {
     if (originalSpeed / inEQ.next.speed == 2) {
         audio.playbackRate = 0.5;
@@ -157,12 +172,14 @@ function nextEQ(inEQ) {
     else if (originalSpeed / inEQ.next.speed == 0.5) {
         audio.playbackRate = 2.0;
     }
-    else
+    else {
         audio.playbackRate = 1.0;
+    }
     document.getElementById('kn').setAttribute('class', inEQ.next.id);
     changeEQ(inEQ.next);
 }
 
+// Revert to the original EQ
 function revertEQ() {
     nextEQ(newConv.prev);
 }
