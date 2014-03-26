@@ -40,6 +40,7 @@ body {
 
 #selector {
 	font-size: 24px;
+	width: 300px;
 }
 
 #timer {

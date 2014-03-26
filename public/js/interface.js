@@ -39,6 +39,8 @@ window.addEventListener('load', function(e) {
     });
     layer.add(reelL);
     layer.add(reelR);
+    reelL.setZIndex(1);
+    reelR.setZIndex(2);
     layer.draw();
 
     // Reel animation function
@@ -62,7 +64,7 @@ window.addEventListener('load', function(e) {
   // Add the shape to the layer
   layer.add(studer);
   // Move it to the bottom of the layer
-  studer.moveToBottom();
+  studer.setZIndex(0);
   layer.draw();
   };
 
@@ -87,8 +89,8 @@ window.addEventListener('load', function(e) {
   layer.add(pinL);
   layer.add(pinR);
   // Move them to the top of the layer
-  pinL.moveToTop();
-  pinR.moveToTop();
+  pinL.setZIndex(4);
+  pinR.setZIndex(3);
   layer.draw();
   // Add the layer to the stage
   stage.add(layer);

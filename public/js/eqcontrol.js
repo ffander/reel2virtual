@@ -30,7 +30,7 @@ window.addEventListener('load', function(e) {
     gain = context.createGain();
     // Gain value set after some trials; it would probably
     // be more correct to have a gain slider
-    gain.gain.value = 15;
+    gain.gain.value = 25;
 
     // A convolver for each supported standard
     IEC1_15 = context.createConvolver();
@@ -141,6 +141,49 @@ function prev() {
         s.selectedIndex = ((s.selectedIndex - 1) % s.length + s.length) % s.length;
     switchSong(s.value);
 }
+
+// Fast Forward and Rewind functionalities
+var intervalRewind;
+
+function fastForward() {
+    audio.playbackRate = 4.0;
+    changeSpeed(currentEQ.speed * 3);
+}
+
+function rewind() {
+    changeSpeed(currentSpeed * (-3));
+    intervalRewind = setInterval(function() {
+       audio.playbackRate = 1.0;
+       if (audio.currentTime === 0) {
+           clearInterval(intervalRewind);
+           audio.pause();
+           anim.stop();
+       } else{
+           audio.currentTime += -0.1;
+       }
+    },30);
+}
+
+function resume() {
+    audio.playbackRate = 1.0;
+    changeSpeed(currentEQ.speed);
+    clearInterval(intervalRewind);
+    //changeEQ(currentEQ);
+}
+
+$('#prev').mousedown( function() {
+    rewind();
+});
+$('#prev').mouseup( function() {
+    resume();
+});
+
+$('#next').mousedown( function() {
+    fastForward();
+});
+$('#next').mouseup( function() {
+    resume();
+});
 
 var currentEQ;
 var currentSpeed;
