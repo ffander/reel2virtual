@@ -28,8 +28,6 @@ window.addEventListener('load', function(e) {
 
     // Gain to compensate for volume loss after convolution
     gain = context.createGain();
-    // Gain value set after some trials; it would probably
-    // be more correct to have a gain slider
     gain.gain.value = 25;
 
     // A convolver for each supported standard
@@ -168,7 +166,7 @@ function resume() {
     audio.playbackRate = 1.0;
     changeSpeed(currentEQ.speed);
     clearInterval(intervalRewind);
-    //changeEQ(currentEQ);
+    changeEQ(currentEQ);
 }
 
 $('#prev').mousedown( function() {
