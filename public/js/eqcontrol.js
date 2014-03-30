@@ -119,7 +119,7 @@ function play(element) {
     anim.start();
 }
 
-function stop(element) {
+function pause(element) {
     element.pause();
     anim.stop();
 }
@@ -173,11 +173,11 @@ function resume() {
 
 // Adding event listeners
 $('#play').click( function() {
-    stop(audio);
+    play(audio);
 });
 
 $('#pause').click( function() {
-    play(audio);
+    pause(audio);
 });
 
 $('#rewind').mousedown( function() {
