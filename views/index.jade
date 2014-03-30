@@ -12,12 +12,10 @@ html(lang='en')
       p#timer
         | 00:00
       .clickcontainer
-        //a(href='#prev', onclick='prev();').click#prev
-        //a(href='#next', onclick='next();').click#next
-        a(href='#prev').click#prev
-        a(href='#next').click#next
-        a(href='#play', onclick='play(audio);').click#play
-        a(href='#pause', onclick='stop(audio);').click#pause
+        a(href='#rewind').click#rewind
+        a(href='#ffward').click#ffward
+        a(href='#play').click#play
+        a(href='#pause').click#pause
       a.knob(onclick='nextEQ(currentEQ);')
         img#kn(class='IEC1_7', src='knob.png', alt='Speed selector knob')
       .trackSelector

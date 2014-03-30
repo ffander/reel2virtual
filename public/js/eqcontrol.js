@@ -124,6 +124,8 @@ function stop(element) {
     anim.stop();
 }
 
+// 'next' and 'prev' buttons have been replaced by 'rewind' and 'fast forward'
+// We're keeping the code for future reference
 function next() {
     var s = document.getElementById('selector');
     s.selectedIndex = (document.getElementById('selector').selectedIndex + 1) % s.length;
@@ -169,17 +171,26 @@ function resume() {
     changeEQ(currentEQ);
 }
 
-$('#prev').mousedown( function() {
+// Adding event listeners
+$('#play').click( function() {
+    stop(audio);
+});
+
+$('#pause').click( function() {
+    play(audio);
+});
+
+$('#rewind').mousedown( function() {
     rewind();
 });
-$('#prev').mouseup( function() {
+$('#rewind').mouseup( function() {
     resume();
 });
 
-$('#next').mousedown( function() {
+$('#ffward').mousedown( function() {
     fastForward();
 });
-$('#next').mouseup( function() {
+$('#ffward').mouseup( function() {
     resume();
 });
 
@@ -216,7 +227,8 @@ function nextEQ(inEQ) {
     else {
         audio.playbackRate = 1.0;
     }
-    document.getElementById('kn').setAttribute('class', inEQ.next.id);
+    //document.getElementById('kn').setAttribute('class', inEQ.next.id); to JQUERY
+    $('#kn').attr('class', inEQ.next.id);
     changeEQ(inEQ.next);
 }
 
@@ -229,6 +241,7 @@ function switchSong(newSong) {
     var newEQ = newSong.split('.');
     anim.stop();
     audio.src = '/play/'+newSong;
+    audio.addEventListener('canplaythrough', function() {
     if (newEQ[0] == 'IEC1_15')
         newConv = IEC1_15;
     else if (newEQ[0] == 'IEC1_7')
@@ -245,7 +258,8 @@ function switchSong(newSong) {
         newConv = NAB_3;
     changeEQ(newConv);
     originalSpeed = newConv.speed;
-    document.getElementById('kn').setAttribute('class', newConv.id);
+    $('#kn').attr('class', newConv.id);
     audio.playbackRate.value = 1.0;
-    play(audio);
+        play(audio);
+    });
 }

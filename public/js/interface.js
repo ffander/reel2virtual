@@ -1,4 +1,4 @@
-// Export this variable so it is accesible
+// Global variable
 var anim;
 
 // Reel rotation speed (initial value set to zero)
@@ -89,8 +89,8 @@ window.addEventListener('load', function(e) {
   layer.add(pinL);
   layer.add(pinR);
   // Move them to the top of the layer
-  pinL.setZIndex(4);
-  pinR.setZIndex(3);
+  pinL.setZIndex(3);
+  pinR.setZIndex(4);
   layer.draw();
   // Add the layer to the stage
   stage.add(layer);
