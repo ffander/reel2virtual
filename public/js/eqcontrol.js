@@ -28,7 +28,10 @@ window.addEventListener('load', function(e) {
 
     // Gain to compensate for volume loss after convolution
     gain = context.createGain();
-    gain.gain.value = 25;
+    // It seems to be a problem only in webkit browsers
+    if (typeof webkitAudioContext !== 'undefined') {
+        gain.gain.value = 25;
+    }
 
     // A convolver for each supported standard
     IEC1_15 = context.createConvolver();
@@ -156,9 +159,9 @@ function rewind() {
        audio.playbackRate = 1.0;
        if (audio.currentTime === 0) {
            clearInterval(intervalRewind);
-           audio.pause();
+           pause(audio);
            anim.stop();
-       } else{
+       } else {
            audio.currentTime += -0.1;
        }
     },30);
@@ -172,26 +175,42 @@ function resume() {
 }
 
 // Adding event listeners
+
+var wasPlaying = true;
+
 $('#play').click( function() {
     play(audio);
+    wasPlaying = true;
 });
 
 $('#pause').click( function() {
     pause(audio);
+    wasPlaying = false;
 });
 
 $('#rewind').mousedown( function() {
+    if (audio.paused) {
+        play(audio);
+    }
     rewind();
 });
+
 $('#rewind').mouseup( function() {
     resume();
+    if (!wasPlaying)
+        pause(audio);
 });
 
 $('#ffward').mousedown( function() {
+    if (audio.paused)
+        play(audio);
     fastForward();
 });
+
 $('#ffward').mouseup( function() {
     resume();
+    if (!wasPlaying)
+        pause(audio);
 });
 
 var currentEQ;
@@ -262,4 +281,5 @@ function switchSong(newSong) {
     audio.playbackRate.value = 1.0;
         play(audio);
     });
+    wasPlaying = true;
 }
