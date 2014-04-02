@@ -276,7 +276,8 @@ function switchSong(newSong) {
         newConv = NAB_3;
     changeEQ(newConv);
     originalSpeed = newConv.speed;
-    $('#kn').attr('class', newConv.id);
+    if ($('kn').attr('class') != newConv.id)
+        $('#kn').attr('class', newConv.id);
     audio.playbackRate.value = 1.0;
         play(audio);
     });
