@@ -246,7 +246,6 @@ function nextEQ(inEQ) {
     else {
         audio.playbackRate = 1.0;
     }
-    //document.getElementById('kn').setAttribute('class', inEQ.next.id); to JQUERY
     $('#kn').attr('class', inEQ.next.id);
     changeEQ(inEQ.next);
 }
