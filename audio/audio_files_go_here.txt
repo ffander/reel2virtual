@@ -1,0 +1,23 @@
+FILENAMING SCHEME:
+
+equalizationstandard.title.format
+
+Where 'equalizaionstandard' can be one of the following:
+
+Professional:
+"IEC1_15": IEC 1 at 15 in/s;
+"IEC1_7": IEC 1 at 7.5 in/s;
+"IEC2_15": IEC 2 at 15 in/s;
+"IEC2_7": IEC 2 at 7.5 in/s;
+
+Domestic:
+"NAB_15": NAB at 15 in/s;
+"NAB_7": NAB at 7.5 in/s;
+"NAB_3": NAB at 3.75 in/s.
+
+Example:
+IEC1_15.Frederic Chopin - Fantaisie Impromptu.mp3
+
+EQ standard: IEC 1 at 15 in/s;
+Track title: Frederic Chopin - Fantaisie Impromptu;
+Filetype: mp3.

@@ -16,7 +16,7 @@ exports.list = function(req, res) {
     for (_i = 0, _len = files.length; _i < _len; _i++) {
       file = files[_i];
       var split = file.split(".");
-      if (split[0] !== "") {
+      if ((split[0] !== "") && ((split[2] === "mp3") || (split[2] === "ogg"))) {
         track = {};
         track['ips'] = split[0];
         track['title'] = split[1];
